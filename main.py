@@ -40,3 +40,16 @@ class User(db.Model):
     def __init__(self, username, password):
         self.username = username
         self.pw_hash = make_pw_hash(password)
+
+
+
+#Filter ALL incoming requests here:
+@app.before_request
+def requre_login():
+    allowed_routes = ['login', 'signup'] #ADD MORE
+    return render_template('base.html')
+
+
+
+if __name__ == "__main__":
+    app.run()
