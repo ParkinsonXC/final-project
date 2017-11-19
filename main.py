@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import desc
+from isemail import is_email
 from hashutils import make_pw_hash, check_pw_hash
 
 
@@ -43,11 +44,52 @@ class User(db.Model):
 
 
 
+
+
+
 #Filter ALL incoming requests here:
-@app.before_request
-def requre_login():
-    allowed_routes = ['login', 'signup'] #ADD MORE
-    return render_template('base.html')
+
+
+# @app.before_request
+# def requre_login():
+#     allowed_routes = ['login', 'signup'] #ADD MORE
+#     if request.endpoint not in allowed_routes:
+#         #TODO: flash a message
+#         return render_template('oldenough.html')
+#     return render_template('base.html')
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+
+    return render_template('login.html')
+
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        #Grab the variables via request method
+        email = request.form['email']
+        password = request.form['password']
+        verify = request.form['verify']
+
+        #Set error checks
+        email_error = ''
+        password_error = ''
+        verify_error = ''
+        duplicate_user_error = ''
+
+        if not is_email(email):
+            email = ''
+            email_error = 'That is not a valid email'
+        TODO:"START HERE"
+
+    
+    return render_template('signup.html')
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 
 
 

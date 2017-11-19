@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Login</h1>
+<form method='POST'>
+    <table>
+        <tbody>
+        <tr>
+            <td><label for='username'>Username</label></td>
+            <td>
+                <input name='username' type='text' value=''>
+            </td>
+        </tr>
+        <tr>
+            <td><label for='password'>Password</label></td>
+            <td>
+                <input name='password' type='password'/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type='submit' value='Log in'>
+</form>
+<p>If you don't have an account, you can <a href='/signup'>sign up</a> for one</p>
+{% endblock %}
