@@ -78,8 +78,7 @@ def signup():
         duplicate_user_error = ''
 
         if not is_email(email):
-            email = ''
-            email_error = 'That is not a valid email'
+            return redirect('/signup')
         TODO:"START HERE"
 
     
