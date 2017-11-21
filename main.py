@@ -60,9 +60,29 @@ class User(db.Model):
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    if session:
-        flash("You are already logged in")
-        return redirect('/')
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+
+        #If user exists, and their password matches what is in the database...
+        if user and check_pw_hash(password, user.pw_hash):
+            #'Remember' that the user has signed in
+            session['email'] = email
+            flash("Logged in")
+            return redirect('/') #TODO change this to a more buyer friendly route
+
+        elif user and user.password != password:
+            flash('Password is incorrect')
+            return redirect('/login')
+
+        elif not user:
+            flash('User does not exist')
+            return redirect('/login')
+
+    else:
+        return render_template('login.html')
+
 
     return render_template('login.html')
 
