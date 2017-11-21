@@ -34,12 +34,12 @@ class Order(db.Model):
 #Use python shell to init database. from main import db, User, Order
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), unique=True)
+    email = db.Column(db.String(120), unique=True)
     pw_hash = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='author')
+    orders = db.relationship('Order', backref='author')
 
-    def __init__(self, username, password):
-        self.username = username
+    def __init__(self, email, password):
+        self.email = email
         self.pw_hash = make_pw_hash(password)
 
 
@@ -72,14 +72,46 @@ def signup():
         verify = request.form['verify']
 
         #Set error checks
-        email_error = ''
+        email_error = '' #NOT USED BECAUSE OF 'EMAIL' TYPE IN HTML FORM
         password_error = ''
         verify_error = ''
         duplicate_user_error = ''
 
-        if not is_email(email):
-            return redirect('/signup')
-        TODO:"START HERE"
+        # if not is_email(email): //COMMENTED OUT FOR NOW TO SEE IF THE ERROR STILL WORKS
+        #     return redirect('/signup')
+        
+        if len(password) <= 3:
+            password_error = "Your password is not long enough"
+        elif len(password) >= 20:
+            password_error ="Your password is too long"
+        elif ' ' in password:
+            password_error = "Your password cannot contain a space"
+        
+        if verify != password:
+            verify_error = "Your passwords do not match"
+
+        
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            duplicate_user_error = "This user already exists"
+            
+        #Should no error occur...
+        if not email_error and not password_error and not verify_error and not existing_user:
+            new_user = User(email, password)
+            db.session.add(new_user) #"stages" the new user for the db
+            db.session.commit() #Actually adds the user to the db
+            session['email'] = email
+            flash('Signed in')
+            return redirect('/')
+
+        #If an error does occur...
+        else:
+            return render_template('signup.html',
+            password_error = password_error,
+            verify_error = verify_error,
+            duplicate_user_error = duplicate_user_error)
+         
+
 
     
     return render_template('signup.html')

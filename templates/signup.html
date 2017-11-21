@@ -10,18 +10,21 @@
                 <td><label for='email'>Email</label></td>
                 <td>
                     <input name='email' type='email'/>
+                    <span class='error'>{{duplicate_user_error}}</span>
                 </td>
             </tr>
             <tr>
                 <td><label for='password'>Password</label></td>
                 <td>
                     <input type='password' name='password'/>
+                    <span class='error'>{{password_error}}</span>
                 </td>
             </tr>
             <tr>
                 <td><label for='verify'>Verify</label></td>
                 <td>
                     <input type='password' name='verify'/>
+                    <span class='error'>{{verify_error}}</span>
                 </td>
         </tbody>
     </table>
