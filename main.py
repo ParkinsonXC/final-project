@@ -60,11 +60,18 @@ class User(db.Model):
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+    if session:
+        flash("You are already logged in")
+        return redirect('/')
 
     return render_template('login.html')
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
+    if session:
+        flash("You are already logged in")
+        return redirect('/')
+
     if request.method == 'POST':
         #Grab the variables via request method
         email = request.form['email']
@@ -94,7 +101,7 @@ def signup():
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             duplicate_user_error = "This user already exists"
-            
+
         #Should no error occur...
         if not email_error and not password_error and not verify_error and not existing_user:
             new_user = User(email, password)
@@ -110,11 +117,16 @@ def signup():
             password_error = password_error,
             verify_error = verify_error,
             duplicate_user_error = duplicate_user_error)
-         
 
-
-    
+    #If method == 'GET'     
     return render_template('signup.html')
+
+@app.route('/logout')
+def logout():
+    del session['email'] 
+    #flash('Logged out', 'no_error') This doesn't work, not sure why.
+    return redirect('/')
+
 
 @app.route('/')
 def index():
