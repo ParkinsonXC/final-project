@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container">
 <div class="row">
-    <div class="col-6">
-        <div class="jumbotron">
+    <div class="col-12">
+        <div class="jumbotron text-center">
+            <div class="row">
+            <div class='col-12'>
+                <p class="text-center">THIS WEBSITE HAS BEEN DESIGNED TO COMPLY WITH THE UNITED STATES
+                     LAW AND MAY NOT BE APPROVED FOR LOCATIONS OUTSIDE THE U.S. KOERNER DISTRIBUTOR 
+                     DOES NOT ENDORSE, APPROVE, CERTIFY, OR SPONSOR LINKED SITES UNLESS SPECIFICALLY
+                      STATED THEREIN.
+
+                    THIS WEBSITE IS NOT INTENDED FOR PERSONS UNDER THE AGE OF 21.</p>
+            </div>
+        </div>
         <form method="POST">
-            <h2 type="submit" class="btn-lrg" href='/index'>Test</h2>
+            <h2 type="submit" class="btn-lg btn-block" href='/index'>I am over 21!</h2>
         </form>
         </div>
     </div>
 </div>
-
+</div>
 
 
 {% endblock %}

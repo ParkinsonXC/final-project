@@ -58,6 +58,10 @@ class User(db.Model):
 #         return render_template('oldenough.html')
 #     return render_template('base.html')
 
+@app.route('/oldenough')
+def oldenough():
+    return render_template('oldenough.html')
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -140,6 +144,9 @@ def signup():
 
     #If method == 'GET'     
     return render_template('signup.html')
+
+
+
 
 @app.route('/logout')
 def logout():

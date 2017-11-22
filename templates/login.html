@@ -2,26 +2,23 @@
 
 {% block content %}
 
-
+<div class="container">
 <h1>Login</h1>
-<form method='POST'>
-    <table>
-        <tbody>
-        <tr>
-            <td><label for='email'>Email</label></td>
-            <td>
-                <input name='email' type='email' value=''>
-            </td>
-        </tr>
-        <tr>
-            <td><label for='password'>Password</label></td>
-            <td>
-                <input name='password' type='password'/>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <input type='submit' value='Log in'>
-</form>
+<div class="form-group">
+    <form method="POST">
+    <label>Email</label>
+    <input type="email" class="form-control" name="email" placeholder="buyer@example.com"/>
+
+    <label>Password</label>
+    <input type="password" class="form-control" name="password"/>
+    <br/>
+    <input type="submit" class="btn btn-neg" value="log in"/>
+    </form>
+</div>
+
 <p>If you don't have an account, you can <a href='/signup'>sign up</a> for one</p>
+</div>
+
+
+
 {% endblock %}
