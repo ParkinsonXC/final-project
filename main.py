@@ -147,6 +147,11 @@ def signup():
 
 @app.route('/order', methods=["GET"])
 def showOrder():
+    #If somehow the user clicks this without signing in...
+    if len(session)==0:
+        flash("You need to log in to do that")
+        return redirect('/login')
+
     #Check for query params...
     order_id = request.args.get('id')
         
@@ -193,6 +198,18 @@ def placeOrder():
             body_error=body_error,
             order_body=order_body)
 
+
+@app.route("/buyerhistory", methods = ["GET"])
+def buyerHistory():
+    #We need to grab the buyer whos info we need to gather, we do this via the session
+    #We then grab all the order to loop through until we match the ids
+    buyer = User.query.filter_by(email=session['email']).first()
+    buyer_orders = Order.query.filter_by(user_id=buyer.id).all()
+
+    # ordered_orders = buyer_orders.query.order_by(desc(Order.pub_date))
+             
+    
+    return render_template("buyerhistory.html", buyer=buyer, orders=buyer_orders) 
 
 
 

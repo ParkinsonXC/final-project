@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<h1>Orders for {{buyer.email}}</h1>
+<br/>
+
+<table class="table">
+    <tr>
+        <th>Subject</th>
+        <th>Order</th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>     
+        <td class="text-primary">{{order.title}}</td>
+        <td class-"text-primary">{{order.body}}</td>
+    </tr>
+    {% endfor %} 
+    
+</table>
+
+
+
+
+{% endblock %}
