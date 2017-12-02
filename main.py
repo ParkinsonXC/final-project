@@ -145,13 +145,53 @@ def signup():
     #If method == 'GET'     
     return render_template('signup.html')
 
+@app.route('/order', methods=["GET"])
+def showOrder():
+    #Check for query params...
+    order_id = request.args.get('id')
+        
+    #If there is an id...
+    #Bring the buyer to his display order page...
+    if order_id:
+        order = Order.query.get(order_id)
+        buyers = User.query.all()
+        return render_template('displayorder.html', order=order, buyers=buyers)
 
-@app.route('/order')
-def placeOrder():
-    if request.method == "POST":
-        pass
+    #If there is no id present, render the regular order page:
     else:
-        return render_template("order.html")
+        return render_template('order.html')
+
+@app.route('/order', methods=["POST"])
+def placeOrder():
+        #Grab specific buyer that this order will be linked to...
+        buyer = User.query.filter_by(email=session['email']).first()
+
+        #Use request form to grab the form 
+        order_title = request.form['subject']
+        order_body = request.form['order']
+
+        title_error = ""
+        body_error = ""
+
+        if len(order_title) == 0:
+            title_error = "Your order needs a title"
+        if len(order_body) < 5:
+            body_error = "We cannot help you if you do not describe the order in detail, try again"
+        
+        #If there is no error...
+        if not title_error and not body_error:
+
+            new_order = Order(order_title, order_body, buyer)
+            db.session.add(new_order)
+            db.session.commit()
+
+            return redirect('/order?id={}'.format(new_order.id))
+
+        else:
+            return render_template('order.html',
+            title_error=title_error,
+            body_error=body_error,
+            order_body=order_body)
 
 
 

@@ -41,13 +41,21 @@
         <li class="nav-item">
             <span class="nav-link"> | </span>
         </li>
+        {% if session|length > 0 %}
         <li class="nav-item">
-            {% if session|length > 0 %}
             <a class="nav-link" href='/logout'>Buyer logout</a>
-            {% else %}
-            <a class="nav-link" href='/login'>Buyer login</a>
-            {% endif %}
         </li>
+        <li class="nav-item">
+            <span class="nav-link"> | </span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/order">Place order</a>
+        </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href='/login'>Buyer login</a>
+            </li>
+            {% endif %}
     </ul>
   </div>
 </nav>
@@ -56,7 +64,10 @@
 
 {% with messages = get_flashed_messages(with_categories=True) %}
         {% for category,message in messages %}
-            <p class ="{{category}}">{{message}}</p>
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Logged in</strong>
+            </div>
         {% endfor %}
     {% endwith %}
 
@@ -64,6 +75,7 @@
 
     {% block content %}
     {% endblock %}
+<hr/>
 <footer>
     <div class="container">
         <div class="row">
