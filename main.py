@@ -5,7 +5,7 @@ from sqlalchemy import desc
 from isemail import is_email
 from hashutils import make_pw_hash, check_pw_hash
 
-
+#LOOK UP STRIPE LIBRARY################################################
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -144,6 +144,14 @@ def signup():
 
     #If method == 'GET'     
     return render_template('signup.html')
+
+
+@app.route('/order')
+def placeOrder():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("order.html")
 
 
 

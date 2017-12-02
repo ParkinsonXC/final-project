@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/simplex/bootstrap.min.css"/>
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "/home/josh/lc101/final-project/templates/static/styles/main.css">
             <style>
             .container {width:960px;
             margin:0 auto;
@@ -12,7 +12,7 @@
 
         <title>Koerner Distributor</title>
     </head>
-<body>
+<body class="container container-fluid">
     <nav class="navbar navbar-expand-lg navbar-inverse bg-light">
   <a class="navbar-brand" href="/">Koerner Distributor
     <img src="http://i65.tinypic.com/r70s4w.png" style="max-height: 35px;"/>
@@ -64,6 +64,34 @@
 
     {% block content %}
     {% endblock %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 footer-navigation">
+                <h3><a href="/">Koerner Distributions</a></h3>
+                <p class="links"><a href="/">Home</a><strong>·</strong><a href="/products">Products</a><strong>·</strong><a href="#">About</a><strong>·</strong><a href="/offices">Offices</a><strong>·</strong></p>
+                <p class="company-name">Koerner Distributor © 2017</p>
+            </div>
+            <div class="col-md-4 col-sm-6 footer-contacts">
+                <div>
+                    <p><span class="new-line-span">21 Revolution Street</span>Paris, France</p>
+                </div>
+                <div>
+                    <p class="footer-center-info email text-left">+1 555 123456</p>
+                </div>
+                <div>
+                    <p><a href="#" target="_blank">support@company.com</a></p>
+                </div>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p>Want to learn more about Koerner Distributor, Inc and what we can do for you? Have a question or comment?  We are waiting to hear from you! Select your nearest office <a href="/offices">here!</a></p>
+                <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 </body>

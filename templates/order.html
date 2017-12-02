@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<h4>Place an order</h4>
+<br/>
+<div class="form-group">
+<form method="POST">
+    <label for="subject">Add a subject</label>
+    <input type="text" class="form-control" name="subject"/>
+    <span class="error"><i>{{title_error}}</i></span>
+
+    <br/>
+    <label for="order">Your order</label>
+    <textarea type="text" class="form-control" name="order"></textarea>
+
+    <br/>
+    <input type="submit" class="btn"/>
+</form>
+</div>
+
+{% endblock %}
