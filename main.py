@@ -220,6 +220,9 @@ def buyerHistory():
     
     return render_template("buyerhistory.html", buyer=buyer, orders=buyer_orders) 
 
+@app.route("/offices", methods=["GET"])
+def displayOffices():
+    return render_template("offices.html")
 
 
 @app.route('/logout')
