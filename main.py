@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from datetime import date
 from sqlalchemy import desc
 from isemail import is_email
 from hashutils import make_pw_hash, check_pw_hash
@@ -28,7 +29,7 @@ class Order(db.Model):
         self.body = body
         self.author = author
         if pub_date is None:
-            pub_date = datetime.utcnow()
+            pub_date = datetime.now()
         self.pub_date = pub_date
 
 #Use python shell to init database. from main import db, User, Order
@@ -62,33 +63,35 @@ class User(db.Model):
 def oldenough():
     return render_template('oldenough.html')
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods=['GET'])
+def displaylogin():
+    return render_template("login.html")
+
+@app.route('/login', methods = ['POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter_by(email=email).first()
 
         #If user exists, and their password matches what is in the database...
-        if user and check_pw_hash(password, user.pw_hash):
-            #'Remember' that the user has signed in
-            session['email'] = email
-            flash("Logged in")
-            return redirect('/') #TODO change this to a more buyer friendly route
+    if user and check_pw_hash(password, user.pw_hash):
+        #'Remember' that the user has signed in
+        session['email'] = email
+        flash("Logged in", "success")
+        return redirect('/')
 
-        elif user and user.password != password:
-            flash('Password is incorrect')
-            return redirect('/login')
+    elif user and user.pw_hash != password:
+        flash('Password is incorrect', "error")
+        return redirect('/login')
 
-        elif not user:
-            flash('User does not exist')
-            return redirect('/login')
+    elif not is_email(email):
+        flash("Invalid email", "error")
+        return redirect('/login')
 
-    else:
-        return render_template('login.html')
+    elif not user:
+        flash('User does not exist', "error")
+        return redirect('/login')
 
-
-    return render_template('login.html')
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
@@ -108,8 +111,8 @@ def signup():
         verify_error = ''
         duplicate_user_error = ''
 
-        # if not is_email(email): //COMMENTED OUT FOR NOW TO SEE IF THE ERROR STILL WORKS
-        #     return redirect('/signup')
+        if not is_email(email):
+            email_error = "Not a valid email"
         
         if len(password) <= 3:
             password_error = "Your password is not long enough"
@@ -204,10 +207,16 @@ def buyerHistory():
     #We need to grab the buyer whos info we need to gather, we do this via the session
     #We then grab all the order to loop through until we match the ids
     buyer = User.query.filter_by(email=session['email']).first()
-    buyer_orders = Order.query.filter_by(user_id=buyer.id).all()
+    all_orders = Order.query.order_by(desc(Order.pub_date)).all()
 
-    # ordered_orders = buyer_orders.query.order_by(desc(Order.pub_date))
-             
+    #In order to display the orders in the correct order (descending), summon all the orders and add
+    #the ones whos user_id attribute (a foreign key) is equal to the buyer.id that we got earlier
+    buyer_orders = []
+
+    for order in all_orders:
+        if order.user_id == buyer.id:
+            buyer_orders.append(order)
+     
     
     return render_template("buyerhistory.html", buyer=buyer, orders=buyer_orders) 
 

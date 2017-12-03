@@ -9,14 +9,21 @@
     <tr>
         <th>Subject</th>
         <th>Order</th>
+        <th>Date</th>
     </tr>
 
     {% for order in orders %}
     <tr>     
         <td class="text-primary">{{order.title}}</td>
-        <td class-"text-primary">{{order.body}}</td>
+        <td class="text-primary">{{order.body}}</td>
+        <td class="text-primary">{{order.pub_date}}</td>
     </tr>
-    {% endfor %} 
+    {% endfor %}
+    {% if orders|length < 1 %}
+    <tr>
+        <td class="text-primary">You haven't placed an order with us yet</td>
+    </tr>
+    {% endif %} 
     
 </table>
 

@@ -7,11 +7,13 @@
 <div class="form-group">
     <form method="POST">
     <label>Email</label>
-    <input type="email" class="form-control" name="email" placeholder="buyer@example.com"/>
+    <input type="text" class="form-control" name="email" placeholder="buyer@example.com"/>
+    <span class='badge badge-info'>{{email_error}}</span>
     
     <br/>
     <label>Password</label>
     <input type="password" class="form-control" name="password"/>
+    <span class='badge badge-info'>{{password_error}}</span>
     <br/>
     <input type="submit" class="btn btn-neg" value="log in"/>
     </form>

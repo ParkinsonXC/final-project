@@ -41,7 +41,7 @@
         <li class="nav-item">
             <span class="nav-link"> | </span>
         </li>
-        {% if session|length > 0 %}
+        {% if session['email']|length > 0 %}
         <li class="nav-item">
             <a class="nav-link" href="/order">Place order</a>
         </li>
@@ -61,13 +61,19 @@
 </nav>
 
 
-
 {% with messages = get_flashed_messages(with_categories=True) %}
         {% for category,message in messages %}
+            {% if category == "error" %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{message}}</strong>
+            </div>
+            {% elif category == "success" %}
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Logged in</strong>
+                <strong>{{message}}</strong>
             </div>
+            {% endif %}
         {% endfor %}
     {% endwith %}
 
