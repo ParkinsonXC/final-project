@@ -4,38 +4,60 @@
 
 
 <div class="container">
-    <h1>Sign up</h1>
-    <div class="form-group">
-        <form method="POST">
-            <label for='email'>Email</label>
-            <input type="email" class="form-control" name="email" placeholder="buyer@example.com"/>
-            <small class="form-text text-muted">We'll never share your email with anyone</small>
-            <span class='badge badge-info'>{{duplicate_user_error}}</span>                       
-            <br/>
+<h1>Sign up</h1>
+<br/>
+<div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <form method="POST">
+                <label for='email'>Email</label>
+                <input type="email" class="form-control" name="email" placeholder="buyer@example.com"/>
+                <small class="form-text text-muted">We'll never share your email with anyone</small>
+                <span class='badge badge-info'>{{duplicate_user_error}}</span>                       
+                <br/>
 
-            <label for='password'>Password</label>
-            <input type="password" class="form-control" name="password"/>
-            <span class='badge badge-primary'>{{password_error}}</span>
-            <br/>
+                <label for='password'>Password</label>
+                <input type="password" class="form-control" name="password"/>
+                <span class='badge badge-primary'>{{password_error}}</span>
+                <br/>
 
-            <label for='verify'>Verify</label>
-            <input type="password" class="form-control" name="verify"/>
-            <span class='badge badge-primary'>{{verify_error}}</span>
-            <br/>
+                <label for='verify'>Verify</label>
+                <input type="password" class="form-control" name="verify"/>
+                <span class='badge badge-primary'>{{verify_error}}</span>
+                <br/>
 
-            <label for="store_num">Store Number</label>
-            <div class="row">
-                <div class="col-4">
-                    <input type="text" class="form-control" name="store_num"/>
-                    <span class="badge badge-info"/>{{store_num_error}}</span>
+                <label for="store_num">Store Number</label>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="store_num"/>
+                        <small class="form-text text-muted">You only need to enter this once</small>
+                        <span class="badge badge-info"/>{{store_num_error}}</span>
+                    </div>
                 </div>
-            </div>
-            <br/>
+                <br/>
 
-            <input type="submit" class="btn btn-reg" value="Sign up"/>
-        </form>
+                <input type="submit" class="btn btn-reg" value="Sign up"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <br/>
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Want to sign up?</div>
+                <div class="card-body text-primary">
+                    <h4 class="card-title">In order to sign up...</h4>
+                    <p class="card-text">If you are a store manager, or a liqour manager at a store
+                        that we service, here is where you will input your information in order to
+                        register for our online ordering service. If you aren't either of those and
+                        would like to contact us, visit our <a href="/offices">offices</a> page to
+                        learn more.
+                    </p>
+                </div>
+        </div>
     </div>
 </div>
+
 
 
 {% endblock %}

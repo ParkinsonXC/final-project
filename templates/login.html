@@ -4,25 +4,42 @@
 
 <div class="container">
 <h1>Login</h1>
-<div class="form-group">
-    <form method="POST">
-    <label>Email</label>
-    <input type="text" class="form-control" name="email" placeholder="buyer@example.com"/>
-    <span class='badge badge-info'>{{email_error}}</span>
+<br/>
+<div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <form method="POST">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" placeholder="buyer@example.com"/>
+            <span class='badge badge-info'>{{email_error}}</span>
+            
+            <br/>
+            <label>Password</label>
+            <input type="password" class="form-control" name="password"/>
+            <span class='badge badge-info'>{{password_error}}</span>
+            
+            <br/>
+            <input type="submit" class="btn btn-neg" value="log in"/>
+            </form>
+        </div>
+        <br/>
+        <p>If you don't have an account, you can <a href='/signup'>sign up</a> for one</p>
+    </div>
     
-    <br/>
-    <label>Password</label>
-    <input type="password" class="form-control" name="password"/>
-    <span class='badge badge-info'>{{password_error}}</span>
-    
-    <br/>
-    <input type="submit" class="btn btn-neg" value="log in"/>
-    </form>
+    <div class="col-6">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Logging in...</div>
+                <div class="card-body text-primary">
+                    <h4 class="card-title">When you choose to order online,</h4>
+                    <p class="card-text">You choose quickness and convenience. You can be sure that
+                        your request will be processed, then handled and input into our database immediately. You will
+                        recieve a confirmation email with your full receipt and invoice number.
+                    </p>
+                </div>
+        </div>
+    </div>
 </div>
-
-<p>If you don't have an account, you can <a href='/signup'>sign up</a> for one</p>
 </div>
-
 
 
 {% endblock %}
