@@ -37,11 +37,14 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True)
     pw_hash = db.Column(db.String(120))
+    store_num = db.Column(db.Integer, unique=True)
     orders = db.relationship('Order', backref='author')
+    
 
-    def __init__(self, email, password):
+    def __init__(self, email, password, store_num):
         self.email = email
         self.pw_hash = make_pw_hash(password)
+        self.store_num = store_num
 
 
 
@@ -104,11 +107,13 @@ def signup():
         email = request.form['email']
         password = request.form['password']
         verify = request.form['verify']
+        store_num = request.form['store_num']
 
         #Set error checks
         email_error = '' #NOT USED BECAUSE OF 'EMAIL' TYPE IN HTML FORM
         password_error = ''
         verify_error = ''
+        store_num_error = ''
         duplicate_user_error = ''
 
         if not is_email(email):
@@ -124,14 +129,17 @@ def signup():
         if verify != password:
             verify_error = "Your passwords do not match"
 
+        if len(store_num) != 5:
+            store_num_error = "Invalid store number"
+
         
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             duplicate_user_error = "This user already exists"
 
         #Should no error occur...
-        if not email_error and not password_error and not verify_error and not existing_user:
-            new_user = User(email, password)
+        if not email_error and not password_error and not verify_error and not existing_user and not store_num_error:
+            new_user = User(email, password, store_num)
             db.session.add(new_user) #"stages" the new user for the db
             db.session.commit() #Actually adds the user to the db
             session['email'] = email
@@ -143,7 +151,8 @@ def signup():
             return render_template('signup.html',
             password_error = password_error,
             verify_error = verify_error,
-            duplicate_user_error = duplicate_user_error)
+            duplicate_user_error = duplicate_user_error,
+            store_num_error = store_num_error)
 
     #If method == 'GET'     
     return render_template('signup.html')
