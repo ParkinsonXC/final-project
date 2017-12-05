@@ -233,6 +233,10 @@ def buyerHistory():
 def displayOffices():
     return render_template("offices.html")
 
+@app.route("/about", methods=["GET"])
+def displayAbout():
+    return render_template("about.html")
+
 
 @app.route('/logout')
 def logout():
