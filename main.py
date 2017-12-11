@@ -225,7 +225,7 @@ def buyerHistory():
     for order in all_orders:
         if order.user_id == buyer.id:
             buyer_orders.append(order)
-     
+    
     
     return render_template("buyerhistory.html", buyer=buyer, orders=buyer_orders) 
 
